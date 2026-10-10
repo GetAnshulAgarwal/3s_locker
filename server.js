@@ -105,4 +105,13 @@ function escapeHtml(str) {
 
 app.listen(PORT, () => {
   console.log(`3S Safe Storage Solutions site running at http://localhost:${PORT}`);
+
+  const missing = ['BREVO_SMTP_LOGIN', 'BREVO_SMTP_KEY', 'SENDER_EMAIL'].filter((k) => !process.env[k]);
+  if (missing.length) {
+    console.warn(`[mail] Contact and quote forms will NOT send until these are set in .env: ${missing.join(', ')}`);
+  } else {
+    transporter.verify()
+      .then(() => console.log('[mail] Brevo SMTP connection verified.'))
+      .catch((err) => console.warn('[mail] Brevo SMTP check failed:', err.message));
+  }
 });
