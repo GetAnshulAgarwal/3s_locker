@@ -315,3 +315,15 @@
     open(a.href);
   });
 })();
+
+// Media protection: stops casual right-click save and drag-out of photos and video.
+// (A deterrent only. Anything a browser displays can still be captured by determined users.)
+(function () {
+  function isMedia(el) { return el && (el.tagName === 'IMG' || el.tagName === 'VIDEO'); }
+  document.addEventListener('contextmenu', function (e) { if (isMedia(e.target)) e.preventDefault(); });
+  document.addEventListener('dragstart', function (e) { if (isMedia(e.target)) e.preventDefault(); });
+  document.querySelectorAll('video').forEach(function (v) {
+    v.setAttribute('controlsList', 'nodownload noplaybackrate');
+    v.setAttribute('disablePictureInPicture', '');
+  });
+})();

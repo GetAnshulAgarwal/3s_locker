@@ -79,8 +79,11 @@ const footer = () => `<footer class="site-footer">
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p>&copy; <span id="year"></span> ${SITE}. All rights reserved.</p>
+      <p>&copy; <span id="year">2026</span> ${SITE}. All rights reserved.</p>
       <button type="button" class="to-top" id="to-top">Scroll to top ↑</button>
+    </div>
+    <div class="container copyright-note">
+      <p>All content on this website, including text, photographs, graphics, videos, page layout and design, is the property of ${SITE} and is protected by copyright law. No part of it may be copied, reproduced, modified or distributed without prior written permission.</p>
     </div>
   </div>
 </footer>`;
