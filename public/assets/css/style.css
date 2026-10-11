@@ -381,7 +381,7 @@ mark.hit { background: #ffe58a; color: inherit; border-radius: 3px; }
 html.splash-on .splash { display: grid; }
 html.splash-on body { overflow: hidden; }
 .splash { position: fixed; inset: 0; z-index: 1000; place-items: center; background: radial-gradient(circle at 50% 40%, #0b3a78 0%, #081226 70%); color: #fff; text-align: center; cursor: pointer;
-  animation: splashOut .6s ease 3.4s forwards; }
+  animation: splashOut .6s ease 5.4s forwards; }
 .splash.splash-hide { opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s ease; }
 @keyframes splashOut { to { opacity: 0; visibility: hidden; } }
 .splash-inner { display: flex; flex-direction: column; align-items: center; padding: 24px; }
@@ -395,7 +395,7 @@ html.splash-on body { overflow: hidden; }
 .splash-tag { font-size: 1rem; color: #00b3ff; letter-spacing: .14em; text-transform: uppercase; margin-top: 14px; opacity: 0; animation: spUp .6s ease 1.55s forwards; }
 @keyframes spUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .splash-bar { width: 220px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.15); margin-top: 32px; overflow: hidden; opacity: 0; animation: spUp .4s ease 1.6s forwards; }
-.splash-bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #00b3ff, #046bd2); animation: spBar 1.5s ease 1.7s forwards; }
+.splash-bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #00b3ff, #046bd2); animation: spBar 3.3s ease 1.7s forwards; }
 @keyframes spBar { to { width: 100%; } }
 @media (max-width: 600px) { .splash-mark { width: 96px; height: 96px; } .splash-3s { font-size: 3.2rem; } .splash-name { font-size: 1.1rem; } .splash-tag { font-size: .85rem; } }
 

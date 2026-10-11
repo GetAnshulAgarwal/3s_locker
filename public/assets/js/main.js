@@ -15,7 +15,7 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') finish(); });
   var started = Date.now();
   function whenReady() {
-    var wait = Math.max(0, 3200 - (Date.now() - started));
+    var wait = Math.max(0, 5200 - (Date.now() - started));
     setTimeout(finish, wait);
   }
   if (document.readyState === 'complete') whenReady(); else window.addEventListener('load', whenReady);
