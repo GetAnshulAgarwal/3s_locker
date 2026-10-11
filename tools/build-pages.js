@@ -21,6 +21,19 @@ const INDUSTRY_NAV = [
 
 const amp = (s) => s.replace(/&(?!amp;)/g, '&amp;');
 
+
+/* ---------- splash (intro) screen ---------- */
+const HEAD_FLAGS = "<script>document.documentElement.className+=' js';try{if(!sessionStorage.getItem('3s_splash')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.className+=' splash-on'}catch(e){}</script>";
+const SPLASH = () => `<div class="splash" id="splash" aria-hidden="true">
+  <div class="splash-inner">
+    <svg class="splash-mark" viewBox="0 0 100 100"><rect class="sp-draw" x="5" y="5" width="90" height="90" rx="10" fill="none" stroke="#00b3ff" stroke-width="5"/><line class="sp-draw" x1="50" y1="5" x2="50" y2="95" stroke="#00b3ff" stroke-width="4"/><line class="sp-draw" x1="5" y1="50" x2="95" y2="50" stroke="#00b3ff" stroke-width="4"/><g class="sp-lock"><path d="M40,46 v-9 a10,10 0 0 1 20,0 v9" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="31" y="45" width="38" height="32" rx="7" fill="#fff"/><circle cx="50" cy="58" r="4.5" fill="#081226"/><rect x="47.5" y="60" width="5" height="9" fill="#081226"/></g></svg>
+    <div class="splash-3s">3S</div>
+    <div class="splash-name">Safe Storage Solutions</div>
+    <div class="splash-tag">We Secure Your Belongings</div>
+    <div class="splash-bar"><span></span></div>
+  </div>
+</div><!--/splash-->`;
+
 /* ---------- shared chrome ---------- */
 const LOGO = (stroke, ink, dot) => `<svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><rect x="5" y="5" width="90" height="90" rx="10" fill="none" stroke="${stroke}" stroke-width="7"/><line x1="50" y1="5" x2="50" y2="95" stroke="${stroke}" stroke-width="6"/><line x1="5" y1="50" x2="95" y2="50" stroke="${stroke}" stroke-width="6"/><path d="M40,46 v-9 a10,10 0 0 1 20,0 v9" stroke="${ink}" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="31" y="45" width="38" height="32" rx="7" fill="${ink}"/><circle cx="50" cy="58" r="4.5" fill="${dot}"/><rect x="47.5" y="60" width="5" height="9" fill="${dot}"/></svg>`;
 
@@ -303,19 +316,25 @@ DOCS.forEach((d) => {
 });
 
 /* Contact */
-add('/contact/', 'Contact', 'Contact 3S Safe Storage Solutions — book a demo or talk to sales.',
-  hero({ crumbs: [['Home', '/'], ['Contact']], eyebrow: 'Contact', image: ['remote-support.jpg', 'Locker kiosk with live video support'], title: 'Get in Touch with 3S', intro: 'Tell us about your space and we will reply within one business day.', ctas: false }) +
+add('/contact/', 'Contact', 'Contact 3S Safe Storage Solutions — book a demo, request a quote or talk to our team in Meerut.',
+  hero({ crumbs: [['Home', '/'], ['Contact']], eyebrow: 'Contact', image: ['remote-support.jpg', 'Locker kiosk with live video support'], title: 'Get in Touch with 3S', intro: 'Planning lockers for a building, campus, gym, hospital or public space? Tell us about your site, what you need to store or deliver and roughly how many people will use it. Our team replies within one business day with a recommended setup, a few clarifying questions and clear next steps. Prefer to talk? Call us directly or book a short demo.', ctas: false, badges: ['Reply in 1 business day', 'Free site consultation', 'Pan-India installation'] }) +
   `<section class="stats"><div class="container stats-grid">
     <div class="${reveal}"><div class="stat-num">1 day</div><div class="stat-label">Typical Reply</div></div>
     <div class="${reveal}"><div class="stat-num">24/7</div><div class="stat-label">Locker Access</div></div>
     <div class="${reveal}"><div class="stat-num">Meerut</div><div class="stat-label">Headquarters</div></div>
     <div class="${reveal}"><div class="stat-num">${CERTS.length}</div><div class="stat-label">Certifications</div></div></div></section>` +
-  section(head('Contact Form', 'Tell Us What You Are Looking For') + `<div class="contact-grid ${reveal}">
+  section(head('Ways to Reach Us', 'Talk to the people who build your lockers.', 'Pick whichever is easiest. You will always reach our team directly, not a call centre.') + `<div class="grid grid-4">
+    <article class="card has-emoji ${reveal}"><div class="emoji-tile" aria-hidden="true">📞</div><h3>Call Us</h3><p>Speak to our director about your project.</p><p class="contact-line"><a href="tel:+918657412969">86574 12969</a></p></article>
+    <article class="card has-emoji ${reveal}"><div class="emoji-tile" aria-hidden="true">✉️</div><h3>Email Sales</h3><p>Send floor plans, photos or requirements for a written proposal.</p><p class="contact-line"><a href="mailto:3ssafestorage@gmail.com">3ssafestorage@gmail.com</a></p></article>
+    <article class="card has-emoji ${reveal}"><div class="emoji-tile" aria-hidden="true">📍</div><h3>Visit Our Workshop</h3><p>See our lockers being built. Please call ahead to arrange a visit.</p><p class="contact-line">Mansarovar Garden Phase 2, Mohkampur Industrial Estate, Delhi Road, Meerut, U.P.</p></article>
+    <article class="card has-emoji ${reveal}"><div class="emoji-tile" aria-hidden="true">🗓️</div><h3>Book a Demo</h3><p>A short call to scope sizes, quantities and integrations for your space.</p><p class="contact-line"><a href="#contact-form">Use the form below →</a></p></article>
+  </div>`, 'lk') +
+  section(head('Contact Form', 'Tell us what you are looking for.', 'The more detail you share, the more useful our first reply will be.') + `<div class="contact-grid ${reveal}">
     <form class="contact-form" id="contact-form" novalidate>
       <div class="form-row"><label for="name">Name <span aria-hidden="true">*</span></label><input type="text" id="name" name="name" autocomplete="name" required></div>
       <div class="form-row"><label for="email">Email <span aria-hidden="true">*</span></label><input type="email" id="email" name="email" autocomplete="email" required></div>
       <div class="form-row"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" autocomplete="tel"></div>
-      <div class="form-row"><label for="message">Message <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="5" required></textarea></div>
+      <div class="form-row"><label for="message">Message <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="5" placeholder="Where will the lockers go, what will they store, and roughly how many users?" required></textarea></div>
       <div class="form-row honeypot" aria-hidden="true"><label for="company">Company</label><input type="text" id="company" name="company" tabindex="-1" autocomplete="off"></div>
       <button type="submit" class="btn btn-primary btn-lg" id="contact-submit">Send Message</button>
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
@@ -323,11 +342,22 @@ add('/contact/', 'Contact', 'Contact 3S Safe Storage Solutions — book a demo o
     <aside class="contact-info"><h3>${SITE}</h3><p class="contact-tagline">We Secure Your Belongings</p>
       <dl class="contact-details">
         <div><dt>Director</dt><dd>Abhishek Dhamija</dd></div>
-        <div><dt>Phone</dt><dd><a href="tel:+918657412969">86574 12969</a> &nbsp;/&nbsp; <a href="tel:+917738208644">77382 08644</a></dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:+918657412969">86574 12969</a></dd></div>
         <div><dt>Email</dt><dd><a href="mailto:3ssafestorage@gmail.com">3ssafestorage@gmail.com</a></dd></div>
         <div><dt>Address</dt><dd>Mansarovar Garden Phase 2,<br>Mohkampur Industrial Estate,<br>Delhi Road, Meerut, U.P.</dd></div>
-      </dl></aside></div>`) +
-  cta('Prefer a Quick Call?', 'Call us or send an email and we will set up a demo.'));
+      </dl>
+      <p class="contact-note">💡 Helpful to include: site type, number of users, items to store, indoor or outdoor, and your timeline.</p></aside></div>`, 'section-alt lk') +
+  section(head('What Happens Next', 'From first message to installed lockers.', 'A clear, no-pressure process.') + stepCards([
+    ['We Reply', 'Within one business day we respond with questions about your space, users and goals.'],
+    ['Plan & Quote', 'We recommend compartment sizes, access method and layout, then send a clear written quote.'],
+    ['Build & Install', 'We manufacture your lockers, install them on site and train your team, then stay on call for support.']]), 'lk') +
+  section(head('FAQ', 'Before you reach out.') + faq([
+    ['How soon will I hear back?', 'We reply to every enquiry within one business day, usually sooner.'],
+    ['Is the consultation free?', 'Yes. Scoping your space and recommending a setup is free, with no obligation to buy.'],
+    ['Do you install outside Meerut?', 'Yes. Tell us your location and we will confirm installation and service arrangements.'],
+    ['What should I send you?', 'A short description is enough. Floor plans, photos and expected user numbers help us give a more accurate quote.'],
+    ['Can I see lockers before deciding?', 'You can visit our Meerut workshop by appointment, and we can share photos of live installations such as Tripti Bhojnalya, Katra.']]), 'section-alt lk lk-faq') +
+  cta('Prefer a Quick Call?', 'Call 86574 12969 or send an email and we will set up a demo.'));
 
 /* Get a quote */
 add('/get-quote/', 'Get a Quote', 'Request a smart locker quote from 3S Safe Storage Solutions.',
@@ -358,10 +388,11 @@ const layout = ({ title, description, body }) => `<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-<script>document.documentElement.className+=' js'</script>
+${HEAD_FLAGS}
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+${SPLASH()}
 <a class="skip-link" href="#main">Skip to content</a>
 ${header()}
 <main id="main">
@@ -393,6 +424,9 @@ const idx = path.join(PUB, 'index.html');
 let home = fs.readFileSync(idx, 'utf8');
 home = home.replace(/<header class="site-header"[\s\S]*?<\/header>/, header()).replace(/<footer class="site-footer">[\s\S]*?<\/footer>/, footer());
 home = home.replace(/href="assets\//g, 'href="/assets/').replace(/src="assets\//g, 'src="/assets/');
+home = home.replace(/<script>document\.documentElement\.className\+=[^<]*<\/script>/, HEAD_FLAGS);
+home = home.replace(/<div class="splash"[\s\S]*?<!--\/splash-->\n?/, '');
+home = home.replace(/<body>\s*/, '<body>\n' + SPLASH() + '\n');
 fs.writeFileSync(idx, home);
 
 console.log(`Built ${pages.length} pages.`);

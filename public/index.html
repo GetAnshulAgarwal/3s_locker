@@ -9,11 +9,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-<script>document.documentElement.className+=' js'</script>
+<script>document.documentElement.className+=' js';try{if(!sessionStorage.getItem('3s_splash')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.className+=' splash-on'}catch(e){}</script>
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-
+<div class="splash" id="splash" aria-hidden="true">
+  <div class="splash-inner">
+    <svg class="splash-mark" viewBox="0 0 100 100"><rect class="sp-draw" x="5" y="5" width="90" height="90" rx="10" fill="none" stroke="#00b3ff" stroke-width="5"/><line class="sp-draw" x1="50" y1="5" x2="50" y2="95" stroke="#00b3ff" stroke-width="4"/><line class="sp-draw" x1="5" y1="50" x2="95" y2="50" stroke="#00b3ff" stroke-width="4"/><g class="sp-lock"><path d="M40,46 v-9 a10,10 0 0 1 20,0 v9" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="31" y="45" width="38" height="32" rx="7" fill="#fff"/><circle cx="50" cy="58" r="4.5" fill="#081226"/><rect x="47.5" y="60" width="5" height="9" fill="#081226"/></g></svg>
+    <div class="splash-3s">3S</div>
+    <div class="splash-name">Safe Storage Solutions</div>
+    <div class="splash-tag">We Secure Your Belongings</div>
+    <div class="splash-bar"><span></span></div>
+  </div>
+</div><!--/splash-->
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header" id="site-header">
@@ -394,7 +402,7 @@
           <p class="contact-tagline">We Secure Your Belongings</p>
           <dl class="contact-details">
             <div><dt>Director</dt><dd>Abhishek Dhamija</dd></div>
-            <div><dt>Phone</dt><dd><a href="tel:+918657412969">86574 12969</a> &nbsp;/&nbsp; <a href="tel:+917738208644">77382 08644</a></dd></div>
+            <div><dt>Phone</dt><dd><a href="tel:+918657412969">86574 12969</a></dd></div>
             <div><dt>Email</dt><dd><a href="mailto:3ssafestorage@gmail.com">3ssafestorage@gmail.com</a></dd></div>
             <div><dt>Address</dt><dd>Mansarovar Garden Phase 2,<br>Mohkampur Industrial Estate,<br>Delhi Road, Meerut, U.P.</dd></div>
           </dl>

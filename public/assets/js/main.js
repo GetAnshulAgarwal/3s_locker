@@ -1,3 +1,26 @@
+// Splash screen: shown once per visit, click to skip
+(function () {
+  var root = document.documentElement;
+  var splash = document.getElementById('splash');
+  if (!splash || !root.classList.contains('splash-on')) return;
+  var done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    try { sessionStorage.setItem('3s_splash', '1'); } catch (e) {}
+    splash.classList.add('splash-hide');
+    setTimeout(function () { root.classList.remove('splash-on'); }, 650);
+  }
+  splash.addEventListener('click', finish);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') finish(); });
+  var started = Date.now();
+  function whenReady() {
+    var wait = Math.max(0, 3200 - (Date.now() - started));
+    setTimeout(finish, wait);
+  }
+  if (document.readyState === 'complete') whenReady(); else window.addEventListener('load', whenReady);
+})();
+
 (function () {
   'use strict';
 
@@ -222,5 +245,73 @@
   });
   document.addEventListener('click', function (e) {
     if (!e.target.closest('.nav-search')) box.hidden = true;
+  });
+})();
+
+// Email chooser: clicking any mailto link offers Gmail / Outlook / mail app / copy.
+// Phones skip the chooser and open their own mail app directly.
+(function () {
+  var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  var modal = null;
+
+  function build() {
+    modal = document.createElement('div');
+    modal.className = 'mail-modal';
+    modal.hidden = true;
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'mail-title');
+    modal.innerHTML =
+      '<div class="mail-card">' +
+        '<button type="button" class="mail-close" aria-label="Close">×</button>' +
+        '<h3 id="mail-title">✉️ Email 3S Safe Storage</h3>' +
+        '<p class="mail-addr"></p>' +
+        '<a class="mail-opt" data-k="gmail" target="_blank" rel="noopener"><span>📧</span> Open in Gmail</a>' +
+        '<a class="mail-opt" data-k="outlook" target="_blank" rel="noopener"><span>📨</span> Open in Outlook</a>' +
+        '<a class="mail-opt" data-k="app"><span>💻</span> Open my email app</a>' +
+        '<button type="button" class="mail-opt" data-k="copy"><span>📋</span> <em>Copy email address</em></button>' +
+      '</div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target.closest('.mail-close')) close();
+      if (e.target.closest('[data-k="app"]') || e.target.closest('[data-k="gmail"]') || e.target.closest('[data-k="outlook"]')) setTimeout(close, 150);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
+  }
+
+  function close() { if (modal) modal.hidden = true; }
+
+  function open(href) {
+    if (!modal) build();
+    var u = new URL(href);
+    var to = decodeURIComponent(u.pathname);
+    var subject = u.searchParams.get('subject') || 'Enquiry from 3S website';
+    var enc = encodeURIComponent;
+    modal.querySelector('.mail-addr').textContent = to;
+    modal.querySelector('[data-k="gmail"]').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + enc(to) + '&su=' + enc(subject);
+    modal.querySelector('[data-k="outlook"]').href = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + enc(to) + '&subject=' + enc(subject);
+    modal.querySelector('[data-k="app"]').href = 'mailto:' + to + '?subject=' + enc(subject);
+    var copy = modal.querySelector('[data-k="copy"]');
+    var label = copy.querySelector('em');
+    label.textContent = 'Copy email address';
+    copy.onclick = function () {
+      function done() { label.textContent = 'Copied ✓'; }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(to).then(done, done);
+      else {
+        var t = document.createElement('textarea');
+        t.value = to; document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); } catch (err) {}
+        document.body.removeChild(t); done();
+      }
+    };
+    modal.hidden = false;
+    modal.querySelector('.mail-opt').focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="mailto:"]');
+    if (!a || isMobile || a.closest('.mail-modal')) return;
+    e.preventDefault();
+    open(a.href);
   });
 })();

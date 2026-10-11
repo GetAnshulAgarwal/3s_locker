@@ -353,3 +353,60 @@ mark.hit { background: #ffe58a; color: inherit; border-radius: 3px; }
   .nav-search input { width: 100%; }
   .primary-nav > .btn { width: 100%; text-align: center; }
 }
+
+/* Contact extras */
+.contact-line { margin: 14px 0 0 !important; font-weight: 700; color: var(--ink) !important; line-height: 1.5; font-size: .95rem; }
+.contact-line a { font-weight: 700; }
+.contact-note { margin: 22px 0 0; padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.08); color: #cfe0f5; font-size: .92rem; }
+
+/* Bigger logo and company name */
+.header-inner { height: 88px; }
+.brand { gap: 14px; }
+.brand-mark { width: 60px; height: 60px; }
+.brand-word { padding-left: 14px; border-left: 3px solid var(--sky); line-height: 1.05; }
+.brand-3s { font-size: 2.25rem; font-weight: 900; letter-spacing: -0.02em; color: var(--blue); }
+.brand-name { font-size: 1.05rem; font-weight: 800; letter-spacing: .01em; color: var(--navy); margin-top: 2px; }
+.footer-name { font-size: 1.45rem; letter-spacing: -0.01em; }
+@media (min-width: 961px) and (max-width: 1400px) { .nav-search { display: none; } }
+@media (max-width: 960px) {
+  .header-inner { height: 72px; }
+  .brand-mark { width: 48px; height: 48px; }
+  .brand-3s { font-size: 1.75rem; }
+  .brand-name { font-size: .86rem; }
+}
+@media (max-width: 400px) { .brand-name { font-size: .78rem; } .brand-word { padding-left: 10px; } }
+
+/* Splash / intro screen (shown once per visit) */
+.splash { display: none; }
+html.splash-on .splash { display: grid; }
+html.splash-on body { overflow: hidden; }
+.splash { position: fixed; inset: 0; z-index: 1000; place-items: center; background: radial-gradient(circle at 50% 40%, #0b3a78 0%, #081226 70%); color: #fff; text-align: center; cursor: pointer;
+  animation: splashOut .6s ease 3.4s forwards; }
+.splash.splash-hide { opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s ease; }
+@keyframes splashOut { to { opacity: 0; visibility: hidden; } }
+.splash-inner { display: flex; flex-direction: column; align-items: center; padding: 24px; }
+.splash-mark { width: 120px; height: 120px; overflow: visible; }
+.sp-draw { stroke-dasharray: 400; stroke-dashoffset: 400; animation: spDraw 1.1s ease forwards; }
+.sp-lock { transform-origin: 50px 60px; opacity: 0; animation: spPop .5s cubic-bezier(.2,1.4,.4,1) .9s forwards; }
+@keyframes spDraw { to { stroke-dashoffset: 0; } }
+@keyframes spPop { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: scale(1); } }
+.splash-3s { font-size: 4rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; margin-top: 18px; color: #fff; opacity: 0; animation: spUp .6s ease 1.1s forwards; }
+.splash-name { font-size: 1.35rem; font-weight: 800; letter-spacing: .04em; color: #cfe0f5; margin-top: 6px; opacity: 0; animation: spUp .6s ease 1.3s forwards; }
+.splash-tag { font-size: 1rem; color: #00b3ff; letter-spacing: .14em; text-transform: uppercase; margin-top: 14px; opacity: 0; animation: spUp .6s ease 1.55s forwards; }
+@keyframes spUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.splash-bar { width: 220px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.15); margin-top: 32px; overflow: hidden; opacity: 0; animation: spUp .4s ease 1.6s forwards; }
+.splash-bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #00b3ff, #046bd2); animation: spBar 1.5s ease 1.7s forwards; }
+@keyframes spBar { to { width: 100%; } }
+@media (max-width: 600px) { .splash-mark { width: 96px; height: 96px; } .splash-3s { font-size: 3.2rem; } .splash-name { font-size: 1.1rem; } .splash-tag { font-size: .85rem; } }
+
+/* Email chooser */
+.mail-modal { position: fixed; inset: 0; z-index: 900; background: rgba(8,18,38,.6); display: grid; place-items: center; padding: 20px; }
+.mail-modal[hidden] { display: none; }
+.mail-card { position: relative; width: min(400px, 100%); background: #fff; border-radius: 18px; padding: 28px 24px 24px; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+.mail-card h3 { margin: 0 0 4px; font-size: 1.25rem; }
+.mail-addr { margin: 0 0 18px; color: var(--muted); font-weight: 700; }
+.mail-close { position: absolute; top: 10px; right: 14px; border: 0; background: none; font-size: 1.8rem; line-height: 1; cursor: pointer; color: var(--muted); }
+.mail-opt { display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; margin-top: 10px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; text-align: left; text-decoration: none; }
+.mail-opt:hover, .mail-opt:focus-visible { border-color: var(--blue); background: var(--soft); outline: none; }
+.mail-opt span { font-size: 1.3rem; }
+.mail-opt em { font-style: normal; }
