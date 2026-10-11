@@ -23,7 +23,7 @@ const amp = (s) => s.replace(/&(?!amp;)/g, '&amp;');
 
 
 /* ---------- splash (intro) screen ---------- */
-const HEAD_FLAGS = "<script>document.documentElement.className+=' js';try{if(!sessionStorage.getItem('3s_splash')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.className+=' splash-on'}catch(e){}</script>";
+const HEAD_FLAGS = "<script>document.documentElement.className+=' js';try{if(!sessionStorage.getItem('3s_splash')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' splash-on';setTimeout(function(){document.documentElement.classList.remove('splash-on')},7500)}}catch(e){}</script>";
 const SPLASH = () => `<div class="splash" id="splash" aria-hidden="true">
   <div class="splash-inner">
     <svg class="splash-mark" viewBox="0 0 100 100"><rect class="sp-draw" x="5" y="5" width="90" height="90" rx="10" fill="none" stroke="#00b3ff" stroke-width="5"/><line class="sp-draw" x1="50" y1="5" x2="50" y2="95" stroke="#00b3ff" stroke-width="4"/><line class="sp-draw" x1="5" y1="50" x2="95" y2="50" stroke="#00b3ff" stroke-width="4"/><g class="sp-lock"><path d="M40,46 v-9 a10,10 0 0 1 20,0 v9" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="31" y="45" width="38" height="32" rx="7" fill="#fff"/><circle cx="50" cy="58" r="4.5" fill="#081226"/><rect x="47.5" y="60" width="5" height="9" fill="#081226"/></g></svg>

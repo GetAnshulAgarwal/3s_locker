@@ -1,4 +1,4 @@
-// Splash screen: shown once per visit, click to skip
+// Splash screen: shown once per visit and cannot be skipped (plays to the end)
 (function () {
   var root = document.documentElement;
   var splash = document.getElementById('splash');
@@ -11,8 +11,6 @@
     splash.classList.add('splash-hide');
     setTimeout(function () { root.classList.remove('splash-on'); }, 650);
   }
-  splash.addEventListener('click', finish);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') finish(); });
   var started = Date.now();
   function whenReady() {
     var wait = Math.max(0, 5200 - (Date.now() - started));

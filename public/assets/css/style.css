@@ -418,3 +418,7 @@ img, video { -webkit-user-drag: none; user-select: none; -webkit-user-select: no
 .footer-bottom .container { flex-wrap: wrap; }
 .footer-bottom .copyright-note { display: block; width: 100%; margin-top: 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.08); }
 .copyright-note p { margin: 0; font-size: .8rem; line-height: 1.6; color: #8fa3bd; max-width: 900px; }
+
+/* Splash cannot be dismissed by tapping, and the page behind it cannot be scrolled or tapped */
+html.splash-on .splash { cursor: default; touch-action: none; overscroll-behavior: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+html.splash-on, html.splash-on body { overflow: hidden; touch-action: none; overscroll-behavior: none; }

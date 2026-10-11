@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-<script>document.documentElement.className+=' js';try{if(!sessionStorage.getItem('3s_splash')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.className+=' splash-on'}catch(e){}</script>
+<script>document.documentElement.className+=' js';try{if(!sessionStorage.getItem('3s_splash')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' splash-on';setTimeout(function(){document.documentElement.classList.remove('splash-on')},7500)}}catch(e){}</script>
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
