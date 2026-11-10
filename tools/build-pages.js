@@ -16,7 +16,7 @@ const LOCKERS = [
 const INDUSTRY_NAV = [
   ['retail', 'Retail'], ['residential', 'Residential'], ['education', 'Educational Institutes'],
   ['workplaces', 'Workplaces'], ['libraries', 'Libraries'], ['government', 'Government'],
-  ['healthcare', 'Healthcare'], ['fitness', 'Gyms & Fitness']
+  ['healthcare', 'Healthcare'], ['religious', 'Religious'], ['fitness', 'Gyms & Fitness']
 ];
 
 const amp = (s) => s.replace(/&(?!amp;)/g, '&amp;');
@@ -110,6 +110,29 @@ const cards = (items, cols = 3) => `<div class="grid grid-${cols}">${items.map((
 const fitCards = (items) => `<div class="grid grid-3">${items.map(([e, t, p]) => `<article class="card fit-card ${reveal}"><div class="emoji-icon" aria-hidden="true">${e}</div><div><h3>${amp(t)}</h3><p>${amp(p)}</p></div></article>`).join('')}</div>`;
 const stepCards = (steps) => `<div class="grid grid-3">${steps.map(([t, p], i) => `<article class="card step-card2 ${reveal}"><span class="sq-num">${i + 1}</span><h3>${amp(t)}</h3><p>${amp(p)}</p></article>`).join('')}</div>`;
 const section = (inner, cls = '', id = '') => `<section class="section ${cls}"${id ? ` id="${id}"` : ''}><div class="container">${inner}</div></section>`;
+const TESTIMONIAL_VIDEOS = [
+  'customer-testimonial-1.mp4',
+  'customer-testimonial-2.mp4',
+  'customer-testimonial-3.mp4',
+  'customer-testimonial-4.mp4'
+];
+const testimonials = () => `<section class="section section-alt lk" id="customer-testimonials"><div class="container">
+  <div class="testimonial-heading">${head('Customer Feedback', 'Hear from our customers.', 'Watch customers share their experience with 3S smart lockers.')}
+    <div class="testimonial-controls">
+      <button class="btn btn-outline testimonial-scroll" type="button" data-testimonial-scroll="-1" aria-label="Show previous testimonials">←</button>
+      <button class="btn btn-outline testimonial-scroll" type="button" data-testimonial-scroll="1" aria-label="Show next testimonials">→</button>
+    </div>
+  </div>
+  <div class="testimonial-slider" role="region" aria-label="Customer testimonial videos" tabindex="0">
+    ${TESTIMONIAL_VIDEOS.map((video, index) => `<article class="card testimonial-card reveal">
+      <video class="testimonial-video" controls preload="metadata" playsinline aria-label="Customer testimonial ${index + 1}">
+        <source src="/assets/video/${video}" type="video/mp4">
+        Your browser does not support HTML video.
+      </video>
+      <p class="testimonial-caption">Customer testimonial ${index + 1}</p>
+    </article>`).join('')}
+  </div>
+</div></section>`;
 const checks = (arr) => `<ul class="checks">${arr.map((x) => `<li>${amp(x)}</li>`).join('')}</ul>`;
 const faq = (items) => `<div class="faq-list">${items.map(([q, a]) => `<div class="faq-item ${reveal}"><h3>${amp(q)}</h3><p>${amp(a)}</p></div>`).join('')}</div>`;
 const cta = (title = 'Ready to Get Started?', text = 'Book a short demo and we will scope the sizes, quantities and integrations for your space.') => `
@@ -129,7 +152,10 @@ const CERTS = ['SOC 2', 'ISO 27001', 'ADA'];
 
 /* ---------- page definitions ---------- */
 const pages = [];
-const add = (url, title, description, body) => pages.push({ url, title, description, body });
+const add = (url, title, description, body) => {
+  const withTestimonials = body.replace(/(<section class="page-hero">[\s\S]*?<\/section>)/, `$1${testimonials()}`);
+  pages.push({ url, title, description, body: withTestimonials });
+};
 
 /* About */
 add('/about/', 'About', 'About 3S Safe Storage Solutions — a Meerut-based maker of smart lockers.',
@@ -209,8 +235,9 @@ const lockerFaq = {
 };
 const timeline = (steps) => `<ol class="timeline">${steps.map(([t, p], i) => `<li class="${reveal}"><span class="tl-num">${i + 1}</span><h3>${amp(t)}</h3><p>${amp(p)}</p></li>`).join('')}</ol>`;
 const lockerImg = { 'standard-lockers': 'lobby-dropoff.jpg', 'day-use-lockers': 'phone-unlock.jpg', 'outdoor-lockers': 'residential.jpg', 'asset-management-lockers': 'touchscreen.jpg', 'smart-package-rooms': 'courier-dropoff.jpg' };
-const indHero = { retail: 'retail.jpg', residential: 'residential.jpg', education: 'education.jpg', workplaces: 'workplace.jpg', libraries: 'library.jpg', government: 'government.jpg', healthcare: 'healthcare.jpg', fitness: 'fitness.jpg' };
-const indSide = { retail: 'phone-qr.jpg', residential: 'lobby-dropoff.jpg', education: 'phone-unlock.jpg', workplaces: 'scan-portrait.jpg', libraries: 'industries-trio.jpg', government: 'remote-support.jpg', healthcare: 'campus-medical.jpg', fitness: 'touchscreen.jpg' };
+const indHero = { retail: 'retail.jpg', residential: 'residential.jpg', education: 'education.jpg', workplaces: 'workplace.jpg', libraries: 'library.jpg', government: 'government.jpg', healthcare: 'healthcare.jpg', religious: 'religious.jpg', fitness: 'fitness.jpg' };
+const indSide = { retail: 'phone-qr.jpg', residential: 'lobby-dropoff.jpg', education: 'phone-unlock.jpg', workplaces: 'scan-portrait.jpg', libraries: 'industries-trio.jpg', government: 'remote-support.jpg', healthcare: 'campus-medical.jpg', religious: 'installation-katra.jpg', fitness: 'touchscreen.jpg' };
+const indHeroAlt = { religious: '3S smart locker installation at Tripti Bhojnalya, Katra' };
 LOCKERS.forEach(([slug, name]) => {
   const [, intro, useCase, why] = lockerData[slug];
   add(`/package-lockers/${slug}/`, name, `${name} from 3S Safe Storage Solutions.`,
@@ -264,6 +291,10 @@ const industries = {
     [['Hand-offs between shifts', 'Staff exchange items without waiting for each other.'], ['Medication security', 'Controlled compartments restrict access to authorized users.'], ['Patient pickup', 'Patients collect prescriptions at convenient hours.'], ['Equipment loss', 'Devices are checked out and returned with a log.']],
     ['Prescription pickup', 'Staff personal storage', 'Equipment and device lending', 'Sample and document transfer'],
     [['Can access be limited to authorized staff?', 'Yes, with role-based access and an audit log.'], ['Can lockers hold temperature-sensitive items?', 'Ask us about options for your requirements.'], ['Is patient data protected?', 'Data is encrypted and access is controlled and monitored.'], ['Are the lockers accessible?', 'Designs meet ADA requirements.'], ['Can we integrate with hospital systems?', 'We provide an API and integration options.']]],
+  religious: ['Religious & Spiritual Centres', 'Religious & Spiritual Centres', 'Make busy temples, pilgrimage sites and community centres easier to navigate with secure, self-service lockers. Visitors can store personal belongings, while staff manage ready-for-pickup items and shared equipment without relying on a staffed counter. A live 3S locker installation at Tripti Bhojnalya, Katra is shown here.',
+    [['Crowded entrance areas', 'Give visitors a secure place for belongings and help keep walkways clear.'], ['Limited counter hours', 'Enable collection and hand-offs beyond the staffed counter schedule.'], ['Untracked hand-offs', 'Record who accessed a compartment and when.'], ['Staff time pressure', 'Reduce routine storage and pickup tasks for on-site teams.']],
+    ['Visitor belongings storage', 'Prasad and publication pickup', 'Staff keys and equipment', 'Document and supply hand-offs'],
+    [['Can lockers support high visitor volumes?', 'Yes. Locker capacity and compartment sizes can be planned around expected peak footfall.'], ['Can visitors use lockers without an app?', 'Access can be configured with a PIN or QR code, as well as the 3S app.'], ['Can lockers be installed outdoors?', 'Weather-resistant outdoor lockers are available for suitable locations.'], ['Can we offer pickup outside counter hours?', 'Yes. Self-service pickup can extend access beyond staffed hours.'], ['Can the system be tailored to our site?', 'We can review your visitor flow, location and storage needs to recommend a suitable setup.']]],
   fitness: ['Gyms & Fitness', 'Gyms & Fitness Centres', 'Give members reliable day-use storage with no keys and no padlocks. Lockers open by PIN, QR code or app, release automatically when the visit ends and can carry your club\'s branding, so front-desk staff spend time on members, not lost keys.',
     [['Key and padlock hassle', 'Members use a PIN, QR code or app instead of keys.'], ['Lockers left in use', 'Automatic release frees lockers when sessions end.'], ['Staff time', 'Front-desk staff stop managing locker issues.'], ['Branding', 'Custom finishes reflect your club.']],
     ['Day-use member lockers', 'Rental lockers with payments', 'Towel and equipment lockers', 'Retail pickup for supplements and merchandise'],
@@ -277,12 +308,13 @@ const useMeta = {
   libraries: [['📖', 'Reserved books ready for self-service collection.'], ['🌙', 'Members return items any hour of the day.'], ['🎧', 'Laptops, tablets and readers lent out safely.'], ['🚐', 'Items moved between branches with a clear trail.']],
   government: [['📄', 'Citizens collect certificates and papers after hours.'], ['🔐', 'Keys, devices and kits issued only to authorised staff.'], ['✉️', 'Documents passed between offices without a courier.'], ['🧪', 'Items handed over with a recorded chain of custody.']],
   healthcare: [['💊', 'Patients collect prescriptions at convenient hours.'], ['👩‍⚕️', 'Secure personal lockers for doctors, nurses and visitors.'], ['🩺', 'Shared devices checked out by authorised staff only.'], ['🧫', 'Samples and paperwork passed between teams securely.']],
+  religious: [['🎒', 'Visitors can keep personal belongings secure during their visit.'], ['🙏', 'Prepared items and publications are ready for collection.'], ['🔑', 'Staff access keys and shared equipment with accountability.'], ['📋', 'Teams hand over documents and supplies securely.']],
   fitness: [['🏋️', 'Members take any free locker and it releases after the visit.'], ['💳', 'Charge for locker use with UPI or card payments.'], ['🧖', 'Towels and gear issued and returned from a locker.'], ['🥤', 'Supplements and merchandise ready for pickup.']]
 };
 INDUSTRY_NAV.forEach(([slug]) => {
   const [nav, title, intro, challenges, uses, faqs] = industries[slug];
   add(`/${slug}/`, nav, `Smart lockers for ${nav.toLowerCase()} by 3S Safe Storage Solutions.`,
-    hero({ crumbs: [['Home', '/'], ['Industries'], [nav]], eyebrow: 'Industries', title: `Smart Lockers for ${title}`, intro, badges: CERTS, image: [indHero[slug], `Smart lockers in ${nav.toLowerCase()}`] }) +
+    hero({ crumbs: [['Home', '/'], ['Industries'], [nav]], eyebrow: 'Industries', title: `Smart Lockers for ${title}`, intro, badges: CERTS, image: [indHero[slug], indHeroAlt[slug] || `Smart lockers in ${nav.toLowerCase()}`] }) +
     section(head('Challenges', `Common challenges in ${nav.toLowerCase()}.`, 'Where self-service lockers make the biggest difference.') + cards(challenges.map((c, i) => [c[0], c[1], ['⏳', '🌙', '🔍', '🔁'][i]]), 4), 'lk') +
     section(head('Use Cases', 'One platform for every need.', `The same locker software covers all of these in ${nav.toLowerCase()}.`) + fitCards(uses.map((u, i) => [useMeta[slug][i][0], u, useMeta[slug][i][1]])), 'section-alt lk') +
     section(head('Integrations', 'Works with what you already have.', 'No need to replace existing systems.') + cards([['ID & Access Cards', 'Reuse the credentials people already carry.', '🪪'], ['User Records', 'Sync users and permissions automatically.', '👥'], ['Payments', 'Add paid storage or pickup when needed.', '💳']]), 'lk') +
@@ -411,8 +443,9 @@ const strip = (h) => h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style
 const searchIndex = pages.map((p) => ({ t: p.title, u: p.url, x: strip(p.body).slice(0, 1800) }));
 try {
   const homeHtml = fs.readFileSync(path.join(PUB, 'index.html'), 'utf8');
-  const main = (homeHtml.match(/<main[\s\S]*<\/main>/) || [homeHtml])[0];
-  searchIndex.unshift({ t: 'Home', u: '/', x: strip(main).slice(0, 2500) });
+  const main = ((homeHtml.match(/<main[\s\S]*<\/main>/) || [homeHtml])[0])
+    .replace(/<section class="section section-alt lk" id="customer-testimonials">[\s\S]*?<\/section>/g, '');
+  searchIndex.unshift({ t: 'Home', u: '/', x: `${strip(main).slice(0, 1800)} ${strip(testimonials())}`.slice(0, 2500) });
 } catch (e) { /* homepage not built yet */ }
 fs.writeFileSync(path.join(PUB, 'assets', 'search-index.json'), JSON.stringify(searchIndex));
 
@@ -426,6 +459,8 @@ pages.forEach((p) => {
 const idx = path.join(PUB, 'index.html');
 let home = fs.readFileSync(idx, 'utf8');
 home = home.replace(/<header class="site-header"[\s\S]*?<\/header>/, header()).replace(/<footer class="site-footer">[\s\S]*?<\/footer>/, footer());
+home = home.replace(/<section class="section section-alt lk" id="customer-testimonials">[\s\S]*?<\/section>/g, '');
+home = home.replace(/(<section class="hero" id="home">[\s\S]*?<\/section>)/, (heroMarkup) => heroMarkup + testimonials());
 home = home.replace(/href="assets\//g, 'href="/assets/').replace(/src="assets\//g, 'src="/assets/');
 home = home.replace(/<script>document\.documentElement\.className\+=[^<]*<\/script>/, HEAD_FLAGS);
 home = home.replace(/<div class="splash"[\s\S]*?<!--\/splash-->\n?/, '');

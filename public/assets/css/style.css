@@ -234,6 +234,15 @@ mark.hit { background: #ffe58a; color: inherit; border-radius: 3px; }
 /* Photos */
 .page-hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
 .page-hero-img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+.testimonial-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.testimonial-heading .section-head { flex: 1; }
+.testimonial-controls { display: flex; gap: 10px; padding-bottom: 44px; }
+.testimonial-scroll { min-width: 44px; min-height: 44px; padding: 8px 14px; cursor: pointer; }
+.testimonial-slider { display: flex; gap: 0; max-width: 760px; margin-inline: auto; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 4px 2px 18px; scrollbar-width: none; -ms-overflow-style: none; }
+.testimonial-slider::-webkit-scrollbar { display: none; }
+.testimonial-card { flex: 0 0 100%; max-width: 100%; scroll-snap-align: start; }
+.testimonial-video { display: block; width: min(100%, 680px); aspect-ratio: 16 / 9; margin-inline: auto; background: #081226; border-radius: var(--radius); }
+.testimonial-caption { margin: 14px 0 0 !important; color: var(--muted); font-weight: 700; }
 .split-media img { aspect-ratio: 4/3; object-fit: cover; width: 100%; }
 .split-media img.portrait { aspect-ratio: 3/4; max-height: 560px; width: auto; margin-inline: auto; }
 .ind-card img { aspect-ratio: 16/10; object-fit: cover; width: 100%; }
@@ -242,6 +251,10 @@ mark.hit { background: #ffe58a; color: inherit; border-radius: 3px; }
 .photo-strip img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius); }
 @media (max-width: 960px) { .page-hero-grid { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .photo-strip { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  .testimonial-heading { align-items: flex-start; }
+  .testimonial-controls { padding-bottom: 44px; }
+}
 /* Content stays visible if JavaScript fails */
 .reveal { opacity: 1; transform: none; }
 .js .reveal { opacity: 0; transform: translateY(18px); }
